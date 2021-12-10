@@ -60,7 +60,6 @@ export default function Product() {
       { file: trailer, label: 'trailer' },
       { file: video, label: 'video' },
     ]);
-    console.log(updateMovie);
   };
 
   const handleSubmit = (e) => {

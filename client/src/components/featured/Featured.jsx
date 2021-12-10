@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import './featured.scss';
 
-export default function Featured({ type }) {
+export default function Featured({ type, setGenre }) {
   const [content, setContent] = useState({});
 
   useEffect(() => {
@@ -12,7 +12,7 @@ export default function Featured({ type }) {
         const res = await axios.get(`/movies/random?type=${type}`, {
           headers: {
             token:
-              'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxOWU3YTA1ZjJmOGRiZTMyMDY1OTY3ZSIsImlzQWRtaW4iOnRydWUsImlhdCI6MTYzODExNDMzMiwiZXhwIjoxNjM4NTQ2MzMyfQ.EMQ4SrfGK4DbkZm19PEIZKJY9oFakGcW3234UvVBk7w',
+              'Bearer ' + JSON.parse(localStorage.getItem('user')).accessToken,
           },
         });
         setContent(res.data[0]);
@@ -23,16 +23,22 @@ export default function Featured({ type }) {
     getRandomContent();
   }, [type]);
 
+  console.log(content);
+
   return (
     <div className='featured'>
       {type && (
         <div className='category'>
           <span>{type === 'movies' ? 'Movies' : 'Series'}</span>
-          <select name='genre' id='genre'>
+          <select
+            name='genre'
+            id='genre'
+            onChange={(e) => setGenre(e.target.value)}
+          >
             <option>Genre</option>
             <option value='adventure'>Adventure</option>
-            <option value='comedy'>Comedy</option>
-            <option value='crime'>Crime</option>
+            <option value='Comedy'>Comedy</option>
+            <option value='Action'>Actions</option>
             <option value='fantasy'>Fantasy</option>
             <option value='historical'>Historical</option>
             <option value='horror'>Horror</option>
@@ -48,7 +54,10 @@ export default function Featured({ type }) {
       )}
       <img src={content.img} alt='' />
       <div className='info'>
-        <img src={content.imgTitle} alt='' />
+        <img
+          src='https://w7.pngwing.com/pngs/271/769/png-transparent-alpha-and-omega-film-art-the-poster-title-miscellaneous-text-logo-thumbnail.png'
+          alt=''
+        />
         <span className='desc'>{content.desc}</span>
         <div className='buttons'>
           <button className='play'>

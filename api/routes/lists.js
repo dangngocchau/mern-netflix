@@ -50,11 +50,28 @@ router.get('/', verify, async (req, res) => {
         ]);
       }
     } else {
-      list = await List.aggregate([{ $sample: { size: 10 } }]);
+      list = await List.find();
     }
     res.status(200).json(list);
   } catch (error) {
     res.status(500).json(error);
   }
 });
+// UPDATE
+
+router.put('/:id', async (req, res) => {
+  try {
+    const updateList = await List.findByIdAndUpdate(
+      req.params.id,
+      {
+        $set: req.body,
+      },
+      { new: true }
+    );
+    res.status(200).json(updateList);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
 module.exports = router;

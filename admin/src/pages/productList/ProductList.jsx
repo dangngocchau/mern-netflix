@@ -9,6 +9,8 @@ import { deleteMovie, getMovies } from '../../context/movieContext/apiCalls';
 export default function MovieList() {
   const { movies, dispatch } = useContext(MovieContext);
 
+  console.log(movies);
+
   useEffect(() => {
     getMovies(dispatch);
   }, [dispatch]);
@@ -16,11 +18,11 @@ export default function MovieList() {
   const handleDelete = (id) => {
     deleteMovie(id, dispatch);
     // eslint-disable-next-line no-restricted-globals
-    // location.reload();
+    location.reload();
   };
 
   const columns = [
-    { field: '_id', headerName: 'ID', width: 90 },
+    { field: '_id', headerName: 'ID', width: 150 },
     {
       field: 'movie',
       headerName: 'Movie',
@@ -34,10 +36,10 @@ export default function MovieList() {
         );
       },
     },
-    { field: 'genre', headerName: 'Genre', width: 120 },
-    { field: 'year', headerName: 'year', width: 120 },
-    { field: 'limit', headerName: 'limit', width: 120 },
-    { field: 'isSeries', headerName: 'isSeries', width: 120 },
+    { field: 'genre', headerName: 'Genre', width: 250 },
+    { field: 'year', headerName: 'year', width: 150 },
+    { field: 'limit', headerName: 'limit', width: 150 },
+    { field: 'isSeries', headerName: 'isSeries', width: 100 },
 
     {
       field: 'action',
@@ -63,7 +65,6 @@ export default function MovieList() {
 
   return (
     <div className='productList'>
-      {console.log('Render')}
       <DataGrid
         rows={movies}
         disableSelectionOnClick
