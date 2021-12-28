@@ -1,16 +1,18 @@
-import './app.scss';
-import Home from './pages/home/Home';
-import Register from './pages/register/Register';
-import Watch from './pages/watch/Watch';
-import Login from './pages/login/Login';
+import { useContext } from 'react';
 import {
   BrowserRouter as Router,
-  Switch,
-  Route,
   Redirect,
+  Route,
+  Switch,
 } from 'react-router-dom';
-import { useContext } from 'react';
+import './app.scss';
 import { AuthContext } from './authContext/authContext';
+import Home from './pages/home/Home';
+import Login from './pages/login/Login';
+import MovieDetail from './pages/MovieDetails/MovieDetail';
+import Profile from './pages/profile/Profile';
+import Register from './pages/register/Register';
+import Watch from './pages/watch/Watch';
 
 const App = () => {
   const { user } = useContext(AuthContext);
@@ -36,6 +38,12 @@ const App = () => {
             </Route>
             <Route path='/watch'>
               <Watch />
+            </Route>
+            <Route path='/detail'>
+              <MovieDetail />
+            </Route>
+            <Route path='/profile'>
+              <Profile />
             </Route>
           </>
         )}

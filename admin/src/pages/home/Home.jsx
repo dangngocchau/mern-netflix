@@ -1,11 +1,14 @@
+import axios from 'axios';
+import { useContext, useEffect, useMemo, useState } from 'react';
 import Chart from '../../components/chart/Chart';
 import FeaturedInfo from '../../components/featuredInfo/FeaturedInfo';
-import './home.css';
-import { userData } from '../../dummyData';
 import WidgetSm from '../../components/widgetSm/WidgetSm';
-import WidgetLg from '../../components/widgetLg/WidgetLg';
-import { useEffect, useMemo, useState } from 'react';
-import axios from 'axios';
+import WidgetSmMovies from '../../components/widgetSmMovies/WidgetSmMovies';
+import { getMovies } from '../../context/movieContext/apiCalls';
+import { MovieContext } from '../../context/movieContext/MovieContext';
+import { getUsers } from '../../context/userContext/apiCalls';
+import { UserContext } from '../../context/userContext/UserContext';
+import './home.css';
 
 export default function Home() {
   const MONTHS = useMemo(
@@ -27,6 +30,8 @@ export default function Home() {
   );
 
   const [userStats, setUserStats] = useState([]);
+  const { users, dispatch: dispatchUser } = useContext(UserContext);
+  const { movies, dispatch: dispatchMovie } = useContext(MovieContext);
 
   useEffect(() => {
     const getStats = async () => {
@@ -51,14 +56,16 @@ export default function Home() {
       }
     };
     getStats();
-  }, [MONTHS]);
+    getUsers(dispatchUser);
+    getMovies(dispatchMovie);
+  }, [MONTHS, dispatchUser, dispatchMovie]);
   return (
     <div className='home'>
-      <FeaturedInfo />
+      <FeaturedInfo users={users} movies={movies} />
       <Chart data={userStats} title='User Analytics' grid dataKey='New User' />
       <div className='homeWidgets'>
         <WidgetSm />
-        <WidgetLg />
+        <WidgetSmMovies />
       </div>
     </div>
   );

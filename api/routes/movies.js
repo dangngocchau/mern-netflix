@@ -16,6 +16,22 @@ router.post('/', verify, async (req, res) => {
     res.status(403).json('You are not allowed!!!');
   }
 });
+// GET NEW MOVIES
+router.get('/', verify, async (req, res) => {
+  const query = req.query.new;
+  if (req.user.isAdmin) {
+    try {
+      const movies = query
+        ? await Movie.find().sort({ _id: -1 }).limit(5)
+        : await Movie.find();
+      res.status(200).json(movies);
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  } else {
+    res.status(403).json('You are not allowed to see all movies');
+  }
+});
 // UPDATE
 router.put('/:id', verify, async (req, res) => {
   if (req.user.isAdmin) {

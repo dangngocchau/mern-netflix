@@ -58,19 +58,23 @@ router.get('/', verify, async (req, res) => {
   }
 });
 // UPDATE
+router.put('/:id', verify, async (req, res) => {
+  if (req.user.isAdmin) {
+    try {
+      const updatedList = await List.findByIdAndUpdate(
+        req.params.id,
+        {
+          $set: req.body,
+        },
+        { new: true }
+      );
 
-router.put('/:id', async (req, res) => {
-  try {
-    const updateList = await List.findByIdAndUpdate(
-      req.params.id,
-      {
-        $set: req.body,
-      },
-      { new: true }
-    );
-    res.status(200).json(updateList);
-  } catch (err) {
-    res.status(500).json(err);
+      res.status(200).json(updatedList);
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  } else {
+    res.status(403).json('You are not allowed!');
   }
 });
 

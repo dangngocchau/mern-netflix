@@ -47,11 +47,17 @@ export default function ListItem({ index, item }) {
         />
         {isHovered && (
           <>
-            <video src={movie.trailer} autoPlay={true} loop />
+            <video
+              src={movie.trailer || '../../assets/Loading3.mov'}
+              autoPlay={true}
+              loop
+            />
             <div className='itemInfo'>
               <div className='icons'>
                 <PlayArrow className='icon' />
-                <Add className='icon' />
+                <Link to={{ pathname: '/detail', movie }}>
+                  <Add className='icon' />
+                </Link>
                 <ThumbUpAltOutlined className='icon' />
                 <ThumbDownOutlined className='icon' />
               </div>

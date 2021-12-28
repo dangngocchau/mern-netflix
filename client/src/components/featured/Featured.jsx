@@ -1,6 +1,7 @@
 import { InfoOutlined, PlayArrow } from '@material-ui/icons';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import './featured.scss';
 
 export default function Featured({ type, setGenre }) {
@@ -22,9 +23,7 @@ export default function Featured({ type, setGenre }) {
     };
     getRandomContent();
   }, [type]);
-
   console.log(content);
-
   return (
     <div className='featured'>
       {type && (
@@ -54,16 +53,16 @@ export default function Featured({ type, setGenre }) {
       )}
       <img src={content.img} alt='' />
       <div className='info'>
-        <img
-          src='https://w7.pngwing.com/pngs/271/769/png-transparent-alpha-and-omega-film-art-the-poster-title-miscellaneous-text-logo-thumbnail.png'
-          alt=''
-        />
+        {/* <img src='' alt='' /> */}
+        <span className='title'>{content.title}</span>
         <span className='desc'>{content.desc}</span>
         <div className='buttons'>
-          <button className='play'>
-            <PlayArrow />
-            <span>Play</span>
-          </button>
+          <Link to={{ pathname: '/watch' }}>
+            <button className='play'>
+              <PlayArrow />
+              <span>Play</span>
+            </button>
+          </Link>
           <button className='more'>
             <InfoOutlined />
             <span>Info</span>

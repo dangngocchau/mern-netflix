@@ -29,7 +29,9 @@ export default function NewList() {
   const handleSubmit = (e) => {
     e.preventDefault();
     createList(list, dispatch);
-    history.push('/lists');
+    setTimeout(() => {
+      history.push('/lists');
+    }, 1000);
   };
 
   return (
