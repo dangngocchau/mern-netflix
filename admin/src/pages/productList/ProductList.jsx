@@ -9,8 +9,6 @@ import { deleteMovie, getMovies } from '../../context/movieContext/apiCalls';
 export default function MovieList() {
   const { movies, dispatch } = useContext(MovieContext);
 
-  console.log(movies);
-
   useEffect(() => {
     getMovies(dispatch);
   }, [dispatch]);
@@ -30,7 +28,14 @@ export default function MovieList() {
       renderCell: (params) => {
         return (
           <div className='productListItem'>
-            <img className='productListImg' src={params.row.img} alt='' />
+            <img
+              className='productListImg'
+              src={
+                params.row.img ||
+                'https://pbs.twimg.com/media/D8tCa48VsAA4lxn.jpg'
+              }
+              alt=''
+            />
             {params.row.title}
           </div>
         );

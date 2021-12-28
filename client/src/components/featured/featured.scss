@@ -1,5 +1,10 @@
 @import '../../app.scss';
 
+.title {
+  font-size: 42px;
+  font-weight: bold;
+}
+
 .featured {
   height: 76vh;
   position: relative;
@@ -46,6 +51,9 @@
     img {
       width: 40vw;
       margin-top: 100px;
+      object-fit: cover;
+      object-position: center center;
+      background-size: contain;
     }
 
     .desc {

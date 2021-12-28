@@ -14,6 +14,7 @@ export default function Product() {
   const history = useHistory();
   const location = useLocation();
   const movie = location.movie;
+  console.log(movie);
   const [movieUpdated, setMovieUpdated] = useState(movie);
   const [trailer, setTrailer] = useState(null);
   const [video, setVideo] = useState(null);
@@ -65,7 +66,9 @@ export default function Product() {
   const handleSubmit = (e) => {
     e.preventDefault();
     updateMovie(movieUpdated, dispatch);
-    history.push('/movies');
+    setTimeout(() => {
+      history.push('/movies');
+    }, 1000);
   };
   console.log(movieUpdated);
   return (

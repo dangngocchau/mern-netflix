@@ -58,8 +58,11 @@ export const deleteList = async (id, dispatch) => {
 export const updateList = async (list, dispatch) => {
   dispatch(updateListStart());
   try {
-    const res = await axios.put('/lists/' + list._id, list);
-
+    const res = await axios.put('/lists/' + list._id, list, {
+      headers: {
+        token: 'Bearer ' + JSON.parse(localStorage.getItem('user')).accessToken,
+      },
+    });
     dispatch(updateListSuccess(res.data));
   } catch (err) {
     dispatch(updateListFailure());

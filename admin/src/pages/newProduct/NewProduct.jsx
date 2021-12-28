@@ -1,8 +1,9 @@
 import { useContext, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { createMovie } from '../../context/movieContext/apiCalls';
+import { MovieContext } from '../../context/movieContext/MovieContext';
 import storage from '../../firebase';
 import './newProduct.css';
-import { MovieContext } from '../../context/movieContext/MovieContext';
 
 export default function NewProduct() {
   const [movie, setMovie] = useState(null);
@@ -12,6 +13,8 @@ export default function NewProduct() {
   const [trailer, setTrailer] = useState(null);
   const [video, setVideo] = useState(null);
   const [uploaded, setUploaded] = useState(0);
+
+  const history = useHistory();
 
   const { dispatch } = useContext(MovieContext);
 
@@ -60,6 +63,9 @@ export default function NewProduct() {
   const handleSubmit = (e) => {
     e.preventDefault();
     createMovie(movie, dispatch);
+    setTimeout(() => {
+      history.push('/movies');
+    }, 1000);
   };
   console.log(movie);
   return (

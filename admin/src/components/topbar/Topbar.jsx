@@ -1,4 +1,3 @@
-import { NotificationsNone } from '@material-ui/icons';
 import React, { useContext } from 'react';
 import { logout } from '../../context/authContext/AuthAction';
 import { AuthContext } from '../../context/authContext/AuthContext';
@@ -13,13 +12,9 @@ export default function Topbar() {
     <div className='topbar'>
       <div className='topbarWrapper'>
         <div className='topLeft'>
-          <span className='logo'>lamaadmin</span>
+          <span className='logo'>Administrator</span>
         </div>
         <div className='topRight'>
-          <div className='topbarIconContainer'>
-            <NotificationsNone />
-            <span className='topIconBadge'>2</span>
-          </div>
           <div class='avatar'>
             <img
               src={

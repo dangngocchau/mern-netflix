@@ -3,6 +3,25 @@ const User = require('../models/User');
 const CryptoJS = require('crypto-js');
 const verify = require('../verifyToken');
 
+// CREATE
+router.post('/create', verify, async (req, res) => {
+  const newUser = new User({
+    username: req.body.username,
+    email: req.body.email,
+    password: CryptoJS.AES.encrypt(
+      req.body.password,
+      process.env.SECRET_KEY
+    ).toString(),
+    profilePic: req.body.profilePic,
+  });
+  try {
+    const saveUser = await newUser.save();
+    res.status(200).json(saveUser);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+});
+
 //UPDATE
 router.put('/:id', verify, async (req, res) => {
   if (req.user.id === req.params.id || req.user.isAdmin) {
